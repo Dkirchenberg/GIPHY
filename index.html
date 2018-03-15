@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GIPHY</title>
+    
+    <style type="text/css">
+      button,
+      div,
+      form,
+      input {
+        margin: 10px;
+      }
+    </style>
+
+</head>
+
+  <body>
+
+    <div class="container">
+
+      <h1>Lots of Dogs!</h1>
+
+      <div id="dog-types"></div>
+
+      <div id = "dog-pics"></div>
+
+      <div id= "gifs-appear-here"></div>
+
+      <button data-breed= "Dachshund">Dachshund</button>
+      <button data-breed = "Golden Retriever">Golden Retriever</button>
+      <button data-breed= "Beagle">Beagle</button>
+      <button data-breed= "Pug">Pug</button>
+  
+      <form id="dog-form">
+        <label for="dog-input">Add Dog Breed</label>
+        <input type="text" id="dog-input"><br>
+        <input id="add-dog" type="submit" value="Dog Breed">
+      </form>
+    
+    </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script type="text/javascript">
+
+      var topics = ["Dachshund", "Golden Retriever", "Beagle", "Pug"];
+
+
+      $("button").on("click", function() {
+
+        var dog= $(this).attr("data-breed");
+
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+          dog + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+          $.ajax({
+          url: queryURL,
+          method: "GET"
+          })
+          
+          .then(function(response) {
+
+            var results = response.data;
+
+            for (var i = 0; i < topics.length; i++) {
+
+            var dogDiv = $("div>");
+            var p = $("<p>").text("Rating: " + results[i].rating);
+
+            var dogImage = $("<img>");
+
+            dogImage.attr("src", results[i].images.fixed_height.url);
+
+            dogDiv.append(p);
+            dogDiv.append(dogImage);
+
+            $("#gifs-appear-here").prepend(dogDiv);
+
+            }
+
+          });
+
+          });
+
+      </script>
+
+  </body>
+
+</html>
+
+       
+     
+
+     
+     
+         
+        
+      
+
+
+
+   
+     
+
+
+
+     
+      
